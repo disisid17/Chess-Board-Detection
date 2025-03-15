@@ -22,9 +22,7 @@ def rectContains(rect,mid_point):
     logic = rect[0]<mid_point[0]<rect[2] and rect[1]<mid_point[1]<rect[3]
     return logic
 
-def find_current_past_position(img_1,img_2,boxes,bool_position,FEN_line,chess_board,number_to_position_map,map_position):
-    past_bool_position = bool_position
-    current_bool_position = bool_position
+def find_current_past_position(img_1,img_2,boxes,FEN_line,chess_board,number_to_position_map,map_position):
     diff_position = np.zeros((8,8),dtype=int)
     past_black_bool_position = fen2board_black(FEN_line)
 

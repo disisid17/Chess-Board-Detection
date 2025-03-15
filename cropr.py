@@ -7,11 +7,7 @@ def main():
         return
 
     while True:
-        ret, frame = cap.read()
-        if not ret:
-            print("Error: Failed to capture image.")
-            break
-        frame = frame[140:940,590:1390]
+        frame = proc(cap)
         # Call the crop and resize functions (currently do nothing)
         cv2.imshow('Live Video Stream', frame)
 
@@ -20,5 +16,11 @@ def main():
 
     cap.release()
     cv2.destroyAllWindows()
+
+def proc(cap):
+    ret, frame = cap.read()
+    frame = frame[140:940,590:1390]
+    frame = cv2.rotate(frame, cv2.ROTATE_180)
+    return frame
 if __name__ == "__main__":
     main()
