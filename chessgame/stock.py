@@ -1,6 +1,6 @@
 from stockfish import Stockfish
 import os
-stockfish = Stockfish(path="/Users/sidharthsandeep/Chesbo/stockfish", depth=18, parameters={"Threads": 4,"Hash":2048, "Minimum Thinking Time": 30})
+stockfish = Stockfish(path="/Users/sidharthsandeep/Chesbo/models/stockfish", depth=18, parameters={"Threads": 4,"Hash":2048, "Minimum Thinking Time": 30})
 def setfen(fen):
     stockfish.set_fen_position(fen)
 def besmove(do=True):
