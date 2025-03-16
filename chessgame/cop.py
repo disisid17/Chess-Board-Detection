@@ -21,7 +21,7 @@ def retmo(diff):
     # Iterate through contours to find the grid cells with differences
     for con,contour in enumerate(contours):
         print(cv2.contourArea(contour))
-        if cv2.contourArea(contour) > 1300 and cv2.contourArea(contour)<4000:  # Filter out small contours
+        if cv2.contourArea(contour) > 500 and cv2.contourArea(contour)<5000:  # Filter out small contours
             print("cont: " + str(con))
             x, y, w, h = cv2.boundingRect(contour)
             row, col = get_chessboard_square(x + w // 2, y + h // 2, frame_width, frame_height)
