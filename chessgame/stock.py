@@ -8,8 +8,9 @@ def besmove(do=True):
     move = stockfish.get_best_move()
     if (do): make(move)
     return move
+def check():
+    return stockfish.get_static_eval()
 def make(move):
-    
     stockfish.make_moves_from_current_position([move])
 def reboard():
     return stockfish.get_board_visual()

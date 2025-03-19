@@ -77,6 +77,9 @@ while True:
     os.system('say \"{}\"'.format(text))
     make(fir)
     #time.sleep(1)
+    if check():
+        os.system('say \"{}\"'.format("White check"))
+        print("Check")
     moveds = besmove()
     text = "Black moves :" + str(moveds)
     os.system('say \"{}\"'.format(text))
@@ -89,6 +92,9 @@ while True:
         os.system('say \"{}\"'.format("Black checkmate"))
         print("Game Over")
         break
+    if check():
+        os.system('say \"{}\"'.format("Black check"))
+        print("Check")
 # while True:
 #     if cv2.waitKey(1) & 0xFF == ord('q'):
 #         ex = True
