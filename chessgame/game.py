@@ -23,7 +23,7 @@ def retmo(diff):
     # Iterate through contours to find the grid cells with differences
     for contour in contours:
         print(cv2.contourArea(contour))
-        if cv2.contourArea(contour) > 600 and cv2.contourArea(contour)<5000:  # Filter out small contours
+        if cv2.contourArea(contour) > 600 and cv2.contourArea(contour)<6000:  # Filter out small contours
             print(cv2.contourArea(contour))
             x, y, w, h = cv2.boundingRect(contour)
             row, col = get_chessboard_square(x + w // 2, y + h // 2, frame_width, frame_height)
@@ -41,7 +41,7 @@ cap = cv2.VideoCapture(0)
 ex = False
 frame_width = 800  # Width of the cropped frame
 frame_height = 800  # Height of the cropped frame
-#setfen("r1bqk2r/ppp2ppp/2n5/4p3/1bP5/3P1N2/PPQ1nPPP/R1B1K2R w KQkq - 0 9")
+#setfen("r1bq3r/ppp2kpp/3b1n2/3pp3/1n6/3KP3/PPPP1PPP/RNB2BNR w - - 6 8")
 while True:
     print("align your move")
     while True:

@@ -1,28 +1,31 @@
 from stockfish import Stockfish
+import chess
 import os
-stockfish = Stockfish(path="/Users/sidharthsandeep/Chesbo/models/stockfish", depth=18, parameters={"Threads": 4,"Hash":2048, "Minimum Thinking Time": 30})
+stocky = Stockfish(path="/Users/sidharthsandeep/Chesbo/models/stockfish", depth=18, parameters={"Threads": 4,"Hash":2048, "Minimum Thinking Time": 30})
 def setfen(fen):
-    stockfish.set_fen_position(fen)
+    stocky.set_fen_position(fen)
 def besmove(do=True):
     #stockfish.set_fen_position(pos)
-    move = stockfish.get_best_move()
+    move = stocky.get_best_move()
     if (do): make(move)
     return move
 def check():
-    return stockfish.get_static_eval()
+    board = chess.Board(fenot())
+    return board.is_check()
 def make(move):
-    stockfish.make_moves_from_current_position([move])
+    stocky.make_moves_from_current_position([move])
+    return move
 def reboard():
-    return stockfish.get_board_visual()
+    return stocky.get_board_visual()
 def val(square):
-    return (stockfish.get_what_is_on_square(square))
+    return (stocky.get_what_is_on_square(square))
 def fenot():
-    return stockfish.get_fen_position()
+    return stocky.get_fen_position()
 def eva():
     mae = False
-    if stockfish.get_evaluation()['type'] == 'mate' and stockfish.get_evaluation()['value'] == 0:
+    if stocky.get_evaluation()['type'] == 'mate' and stocky.get_evaluation()['value'] == 0:
         mae = True
-    return stockfish.get_evaluation(), mae
+    return stocky.get_evaluation(), mae
 if __name__ == '__main__':
     while True:
         make(input("move: "))
