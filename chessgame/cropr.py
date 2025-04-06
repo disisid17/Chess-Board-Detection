@@ -19,7 +19,9 @@ def main():
 
 def proc(cap):
     ret, frame = cap.read()
-    frame = frame[140:940,590:1390]
+    frame = frame[90:390,170:470]
+    if __name__ == "__main__":
+     print(frame.shape)
     frame = cv2.rotate(frame, cv2.ROTATE_180)
     return frame
 if __name__ == "__main__":

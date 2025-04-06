@@ -23,7 +23,7 @@ def retmo(diff):
     # Iterate through contours to find the grid cells with differences
     for contour in contours:
         print(cv2.contourArea(contour))
-        if cv2.contourArea(contour) > 600 and cv2.contourArea(contour)<6000:  # Filter out small contours
+        if cv2.contourArea(contour) > 600 * scale and cv2.contourArea(contour)<6000 * scale:  # Filter out small contours
             print(cv2.contourArea(contour))
             x, y, w, h = cv2.boundingRect(contour)
             row, col = get_chessboard_square(x + w // 2, y + h // 2, frame_width, frame_height)
@@ -39,8 +39,9 @@ def retmo(diff):
 
 cap = cv2.VideoCapture(0)
 ex = False
-frame_width = 800  # Width of the cropped frame
-frame_height = 800  # Height of the cropped frame
+frame_width = 300  # Width of the cropped frame
+frame_height = 300  # Height of the cropped frame
+scale = frame_width/800
 #setfen("r1bq3r/ppp2kpp/3b1n2/3pp3/1n6/3KP3/PPPP1PPP/RNB2BNR w - - 6 8")
 while True:
     print("align your move")
@@ -53,7 +54,7 @@ while True:
             ex = True
             break
     cv2.destroyAllWindows()
-    os.system('say \"{}\"'.format("make your move"))
+    #os.system('say \"{}\"'.format("make your move"))
     print("Make your move")
     while True:
         adj = proc(cap)
@@ -74,26 +75,26 @@ while True:
         fir = mover[1]+mover[0]
     print(fir)
     text = "White moves :" + str(fir)
-    os.system('say \"{}\"'.format(text))
+    #os.system('say \"{}\"'.format(text))
     make(fir)
     #time.sleep(1)
     if check():
-        os.system('say \"{}\"'.format("White check"))
+        #os.system('say \"{}\"'.format("White check"))
         print("Check")
     moveds = besmove()
     text = "Black moves :" + str(moveds)
-    os.system('say \"{}\"'.format(text))
+    #os.system('say \"{}\"'.format(text))
     print(moveds)
     print(reboard())
     print(besmove(False))
     print(fenot())
     print(eva()[0])
     if eva()[1]:
-        os.system('say \"{}\"'.format("Black checkmate"))
+        #os.system('say \"{}\"'.format("Black checkmate"))
         print("Game Over")
         break
     if check():
-        os.system('say \"{}\"'.format("Black check"))
+        #os.system('say \"{}\"'.format("Black check"))
         print("Check")
 # while True:
 #     if cv2.waitKey(1) & 0xFF == ord('q'):
