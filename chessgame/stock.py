@@ -26,12 +26,18 @@ def eva():
     if stocky.get_evaluation()['type'] == 'mate' and stocky.get_evaluation()['value'] == 0:
         mae = True
     return stocky.get_evaluation(), mae
+def b2cord(move):
+    m1,m2 = move[:2],move[2:4]
+    x1,y1 = ord(m1[0])-96,m1[1:]
+    x2,y2 = ord(m2[0])-96,m2[1:]
+    return m1,m2,(8-(x1),8-(int(y1))),(8-(x2),8-(int(y2))),val(m1)
 if __name__ == '__main__':
     while True:
-        make(input("move: "))
-        print(besmove())
-        print(reboard())
-        print(stockfish.get_evaluation())
-        if stockfish.get_evaluation()['type'] == 'mate' and stockfish.get_evaluation()['value'] == 0:
-            print("Game Over")
-            break
+        print(b2cord(input("move: ")))
+        # make(input("move: "))
+        # print(besmove())
+        # print(reboard())
+        # print(stockfish.get_evaluation())
+        # if stockfish.get_evaluation()['type'] == 'mate' and stockfish.get_evaluation()['value'] == 0:
+        #     print("Game Over")
+        #     break

@@ -1,17 +1,26 @@
 import tkinter as tk
-from pigtest import angler
+from ..engine.pigtest import angler
 import math
 
 # State variable to track whether the arm is open or closed
 arm_open = False
 
-def update_servo1(angle):
-    """Update servo 1 angle."""
-    angler(int(angle), 2)
-
-def update_servo2(angle):
-    """Update servo 2 angle."""
-    angler(int(angle), 1)
+def plane(*args):
+    """Update Servo 1 and Servo 2 angles together."""
+    x = servo1_slider.get()
+    y = servo2_slider.get()
+    plana(x, y)
+def plana(x,y,z=0):
+    x=(x+2)
+    y=(y)
+    a=math.atan2(y,x)
+    l=x/math.cos(a)
+    print(l,math.degrees(a))
+    update_servo0(math.degrees(a)*2)  # Update Servo 1\\
+    if __name__ == "__main__":
+        coord_Move(l, z)  # Update Servo 3 and Servo 4
+    return l, math.degrees(a)
+    #angler(int(angle2), 1)  # Update Servo 2
 
 def coord_Move(x, y):
     """Update servo 3 angle using both sliders."""
@@ -26,13 +35,14 @@ def coord_Move(x, y):
     g = a + math.degrees(math.atan2(y, x))
     print(203 - g)
     print(g + b + 100)
-    angler(203 - g, 2)  # Example: Update servo 3 angle
-    angler(g + b + 100, 1)  # Example: Update servo 4 angle
+    #angler(203 - g, 2)
+    angler(203-g,2,g+b+100,1)  # Example: Update servo 3 angle
+    #angler(g + b + 100, 1)  # Example: Update servo 4 angle
     pass
 
 def update_servo0(angle):
     """Update servo 0 angle."""
-    angler(90+int(angle), 0)
+    angler(min(max(int(angle)+90,0),180),0)
 
 def on_extra_slider_change(*args):
     """Handle changes in the extra sliders and pass values to coord_Move."""
@@ -54,10 +64,10 @@ def toggle_arm():
     global arm_open
     if arm_open:
         print("Closing arm...")
-        angler(5, 3)  # Example: Close the arm
+        angler(10, 3)  # Example: Close the arm
     else:
         print("Opening arm...")
-        angler(60, 3)  # Example: Open the arm
+        angler(50, 3)  # Example: Open the arm
     arm_open = not arm_open
     #arm_toggle_button_main.config(text="Close Arm" if arm_open else "Open Arm")
     #arm_toggle_button_extra.config(text="Close Arm" if arm_open else "Open Arm")
@@ -71,15 +81,15 @@ if __name__ == "__main__":
     main_sliders_frame = tk.Frame(root)
 
     # Create a slider for Servo 1
-    servo1_label = tk.Label(main_sliders_frame, text="Servo 1 Angle")
+    servo1_label = tk.Label(main_sliders_frame, text="distance")
     servo1_label.pack()
-    servo1_slider = tk.Scale(main_sliders_frame, from_=90, to=170, orient=tk.HORIZONTAL, command=update_servo1, length=800)
+    servo1_slider = tk.Scale(main_sliders_frame, from_=0, to=7, orient=tk.HORIZONTAL, command=plane,resolution=0.01, length=800)
     servo1_slider.pack()
 
     # Create a slider for Servo 2
-    servo2_label = tk.Label(main_sliders_frame, text="Servo 2 Angle")
+    servo2_label = tk.Label(main_sliders_frame, text="offset")
     servo2_label.pack()
-    servo2_slider = tk.Scale(main_sliders_frame, from_=50, to=130, orient=tk.HORIZONTAL, command=update_servo2, length=800)
+    servo2_slider = tk.Scale(main_sliders_frame, from_=-4, to=4, orient=tk.HORIZONTAL, command=plane,resolution=0.01, length=800)
     servo2_slider.pack()
 
     # Create a slider for Servo 0 (visible on both screens)
